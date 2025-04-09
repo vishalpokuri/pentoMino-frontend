@@ -1,7 +1,32 @@
 import Paper from "@mui/material/Paper";
-import darkBlueBlock from "../assets/blockImages/darkblueBlock.png";
+
+import i2 from "../assets/blockImages/2.png";
+import i3 from "../assets/blockImages/3.png";
+import i4 from "../assets/blockImages/4.png";
+import i5 from "../assets/blockImages/5.png";
+import i6 from "../assets/blockImages/6.png";
+import i7 from "../assets/blockImages/7.png";
+import i8 from "../assets/blockImages/8.png";
+import i9 from "../assets/blockImages/9.png";
+import i10 from "../assets/blockImages/10.png";
+import i1 from "../assets/blockImages/i1.png";
 import Box from "@mui/material/Box";
 const Board = () => {
+  const imageMap = {
+    0: i1,
+    1: i2,
+    2: i3,
+    3: i4,
+    4: i5,
+    5: i6,
+    6: i7,
+    7: i8,
+    8: i9,
+    9: i10,
+  };
+  
+  const randomizer = Array.from({ length: 54 }, () => Math.floor(Math.random() * 9));
+
   return (
     <div>
       <Paper
@@ -31,7 +56,7 @@ const Board = () => {
             gap: 1,
           }}
         >
-          {Array.from({ length: 54 }).map((_, i) => (
+        {randomizer.map((num, i) => (
             <Box
               key={i}
               sx={{
@@ -43,10 +68,18 @@ const Board = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: "1rem",
               }}
             >
-              <img src={darkBlueBlock} className="opacity-75" />
+              <img
+                src={imageMap[num]} // make sure these images exist
+                alt={`i${num}`}
+                className="opacity-75"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain", // Keeps aspect ratio of the image
+                }}
+              />
             </Box>
           ))}
         </Box>
