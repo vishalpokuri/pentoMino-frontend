@@ -1,10 +1,44 @@
 import React from "react";
 import { DropdownButton } from "./DropdownButton";
+import Run from "./Run";
+type Setter = React.Dispatch<React.SetStateAction<string>>;
 
-export default function CustomSelectGroup() {
-  const [date, setDate] = React.useState("");
-  const [month, setMonth] = React.useState("");
-  const [day, setDay] = React.useState("");
+interface BasicSelectProps {
+  date: string;
+  day: string;
+  month: string;
+  setDay: Setter;
+  setMonth: Setter;
+  setDate: Setter;
+}
+
+export default function BasicSelect({
+  date,
+  setDate,
+  month,
+  setMonth,
+  day,
+  setDay,
+}: BasicSelectProps) {
+  const runnerFn = async () => {
+    const response = await fetch(
+      "https://pentomino-backend-production.up.railway.app/solve",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // This requires the body to be a JSON string
+        },
+        body: JSON.stringify({
+          // Convert your object to a JSON string
+          month: month,
+          day: date, // This should match what your backend expects
+          weekday: day, // Your backend expects "weekday" not "day"
+        }),
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+  };
 
   return (
     <div className="flex flex-wrap my-auto gap-6 py-10 flex-col">
@@ -39,6 +73,7 @@ export default function CustomSelectGroup() {
         onChange={setDay}
         options={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
       />
+      <Run runnerFn={runnerFn} />
     </div>
   );
 }

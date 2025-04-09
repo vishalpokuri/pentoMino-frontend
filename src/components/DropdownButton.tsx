@@ -26,7 +26,7 @@ export function DropdownButton({
 
           return (
             <div className="relative">
-              <Listbox.Button className="shadow-[inset_0_0_0_2px_#616467] text-black px-8 py-3 w-full rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200 flex justify-between items-center">
+              <Listbox.Button className="shadow-[inset_0_0_0_2px_#616467] text-black px-8 py-3 w-full rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200 flex justify-between items-center min-w-[180px]">
                 {value || label}
                 <ChevronDown className="ml-2 h-5 w-5" />
               </Listbox.Button>
