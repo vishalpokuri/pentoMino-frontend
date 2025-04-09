@@ -1,15 +1,15 @@
 import Paper from "@mui/material/Paper";
 
-import i2 from "../assets/blockImages/2.png";
-import i3 from "../assets/blockImages/3.png";
-import i4 from "../assets/blockImages/4.png";
-import i5 from "../assets/blockImages/5.png";
-import i6 from "../assets/blockImages/6.png";
-import i7 from "../assets/blockImages/7.png";
-import i8 from "../assets/blockImages/8.png";
-import i9 from "../assets/blockImages/9.png";
-import i10 from "../assets/blockImages/10.png";
-import i1 from "../assets/blockImages/i1.png";
+import i2 from "../assets/figmaBlockImages/2.png";
+import i3 from "../assets/figmaBlockImages/3.png";
+import i4 from "../assets/figmaBlockImages/4.png";
+import i5 from "../assets/figmaBlockImages/5.png";
+import i6 from "../assets/figmaBlockImages/6.png";
+import i7 from "../assets/figmaBlockImages/7.png";
+import i8 from "../assets/figmaBlockImages/8.png";
+import i9 from "../assets/figmaBlockImages/9.png";
+import i10 from "../assets/figmaBlockImages/10.png";
+import i1 from "../assets/figmaBlockImages/1.png";
 import Box from "@mui/material/Box";
 const Board = () => {
   const imageMap = {
@@ -24,15 +24,17 @@ const Board = () => {
     8: i9,
     9: i10,
   };
-  
-  const randomizer = Array.from({ length: 54 }, () => Math.floor(Math.random() * 9));
+
+  const randomizer = Array.from({ length: 53 }, () =>
+    Math.floor(Math.random() * 9)
+  );
 
   return (
-    <div>
+    <div className="my-auto">
       <Paper
         sx={{
           marginTop: "10vh",
-          width: { xs: "35vw", sm: "45vw", md: "50vw" },
+          width: { xs: "35vw", sm: "40vw", md: "45vw" },
           aspectRatio: "3 / 2", // Optional: Makes the card itself nicely proportioned
           backgroundColor: "#1e1e1e",
           borderRadius: 3,
@@ -56,7 +58,7 @@ const Board = () => {
             gap: 1,
           }}
         >
-        {randomizer.map((num, i) => (
+          {randomizer.map((num, i) => (
             <Box
               key={i}
               sx={{
