@@ -63,9 +63,6 @@ function App() {
 
     randomizerValuesRef.current = temp;
     setIsReady(true);
-
-    console.log("Animation data prepared:", temp.length, "boards");
-    console.log("Solution board:", answer);
   }, [run, sol]);
 
   const handleRunClick = async () => {

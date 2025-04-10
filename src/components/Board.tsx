@@ -107,8 +107,6 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
   useEffect(() => {
     if (!run || !isReady || !rdVals || rdVals.length === 0) return;
 
-    console.log("Animation starting with", rdVals.length, "boards");
-
     // Reset animation states
     setShowSolution(false);
     setAnimationStep(0);
@@ -126,7 +124,6 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
       if (step < totalRandomBoards - 1) {
         // Move to next step, starting from 1 since we already set 0
         step++;
-        console.log(`Animation step ${step} of ${totalRandomBoards - 1}`);
 
         if (rdVals[step]) {
           setCurrentRandomBoard(rdVals[step]);
@@ -134,7 +131,6 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
         }
       } else {
         // Show the solution
-        console.log("Animation complete, showing solution");
         console.log(rdVals[rdVals.length - 1]);
 
         setTimeout(() => {
@@ -146,7 +142,6 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
     }, 400); // 400ms between each animation frame
 
     return () => {
-      console.log("Cleaning up animation interval");
       clearInterval(animationInterval);
     };
   }, [run, isReady, rdVals]);
