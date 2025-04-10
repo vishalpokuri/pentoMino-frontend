@@ -1,15 +1,15 @@
 import Paper from "@mui/material/Paper";
 import { useState, useEffect } from "react";
-import i1 from "../assets/figmaBlockImages/1.png";
-import i2 from "../assets/figmaBlockImages/2.png";
-import i3 from "../assets/figmaBlockImages/3.png";
-import i4 from "../assets/figmaBlockImages/4.png";
-import i5 from "../assets/figmaBlockImages/5.png";
-import i6 from "../assets/figmaBlockImages/6.png";
-import i7 from "../assets/figmaBlockImages/7.png";
-import i8 from "../assets/figmaBlockImages/8.png";
-import i9 from "../assets/figmaBlockImages/9.png";
-import i10 from "../assets/figmaBlockImages/10.png";
+import i1 from "../assets/figmaBlockImagesa/1.png";
+import i2 from "../assets/figmaBlockImagesa/2.png";
+import i3 from "../assets/figmaBlockImagesa/3.png";
+import i4 from "../assets/figmaBlockImagesa/4.png";
+import i5 from "../assets/figmaBlockImagesa/5.png";
+import i6 from "../assets/figmaBlockImagesa/6.png";
+import i7 from "../assets/figmaBlockImagesa/7.png";
+import i8 from "../assets/figmaBlockImagesa/8.png";
+import i9 from "../assets/figmaBlockImagesa/9.png";
+import i10 from "../assets/figmaBlockImagesa/10.png";
 import Box from "@mui/material/Box";
 
 interface BoardProps {
@@ -23,10 +23,10 @@ interface BoardProps {
 
 const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
   const [currentRandomBoard, setCurrentRandomBoard] = useState<number[]>([]);
-  const [animationStep, setAnimationStep] = useState(0);
+  const [_animationStep, setAnimationStep] = useState(0);
   const [showSolution, setShowSolution] = useState(false);
 
-  const revealMap = {
+  const revealMap: Record<number, string> = {
     0: "Jan",
     1: "Feb",
     2: "Mar",
@@ -82,24 +82,34 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
     52: "14",
   };
 
-  const imageMap = {
-    1: i1,
-    2: i2,
-    3: i3,
-    4: i4,
-    5: i5,
-    6: i6,
-    7: i7,
-    8: i8,
-    9: i9,
-    10: i10,
+  const imageMap: Record<number, string> = {
+    0: i1,
+    1: i2,
+    2: i3,
+    3: i4,
+    4: i5,
+    5: i6,
+    6: i7,
+    7: i8,
+    8: i9,
+    9: i10,
   };
+
+  // Reset states when date/month/day changes
+  useEffect(() => {
+    // Reset animation states when selection changes
+    setShowSolution(false);
+    setAnimationStep(0);
+    setCurrentRandomBoard([]);
+  }, [date, month, day]);
 
   // useEffect for animation
   useEffect(() => {
     if (!run || !isReady || !rdVals || rdVals.length === 0) return;
 
-    // Reset states
+    console.log("Animation starting with", rdVals.length, "boards");
+
+    // Reset animation states
     setShowSolution(false);
     setAnimationStep(0);
 
@@ -116,26 +126,42 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
       if (step < totalRandomBoards - 1) {
         // Move to next step, starting from 1 since we already set 0
         step++;
+        console.log(`Animation step ${step} of ${totalRandomBoards - 1}`);
+
         if (rdVals[step]) {
           setCurrentRandomBoard(rdVals[step]);
           setAnimationStep(step);
         }
       } else {
         // Show the solution
+        console.log("Animation complete, showing solution");
+        console.log(rdVals[rdVals.length - 1]);
+
         setTimeout(() => {
           setShowSolution(true);
         }, 50);
+
         clearInterval(animationInterval);
       }
     }, 400); // 400ms between each animation frame
 
-    return () => clearInterval(animationInterval);
+    return () => {
+      console.log("Cleaning up animation interval");
+      clearInterval(animationInterval);
+    };
   }, [run, isReady, rdVals]);
 
   // Highlight indexes calculation
   const highlightIndexes = Object.entries(revealMap)
     .filter(([_index, value]) => [date, month, day].includes(String(value)))
     .map(([index]) => parseInt(index));
+
+  // Helper function to get the correct image
+  const getImageSrc = (value: number) => {
+    // Adjust the index if needed (0-indexed vs 1-indexed)
+    const adjustedValue = value >= 0 && value <= 9 ? value : 0;
+    return imageMap[adjustedValue] || imageMap[0];
+  };
 
   return (
     <div className="my-auto">
@@ -199,8 +225,8 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
                     revealMap[index] || ""
                   ) : currentRandomBoard[index] !== undefined ? (
                     <img
-                      src={imageMap[currentRandomBoard[index] + 1]}
-                      alt={`i${currentRandomBoard[index]}`}
+                      src={getImageSrc(currentRandomBoard[index])}
+                      alt={`image-${currentRandomBoard[index]}`}
                       className="opacity-75"
                       style={{
                         width: "100%",
@@ -213,6 +239,8 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
               );
             } else if (run && isReady && showSolution) {
               // When solution should be shown
+              const solutionValue = rdVals[rdVals.length - 1]?.[index];
+
               return (
                 <Box
                   key={index}
@@ -239,10 +267,10 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
                 >
                   {isHighlighted ? (
                     revealMap[index] || ""
-                  ) : rdVals[rdVals.length - 1]?.[index] !== undefined ? (
+                  ) : solutionValue !== undefined ? (
                     <img
-                      src={imageMap[rdVals[rdVals.length - 1][index]]}
-                      alt={`i${rdVals[rdVals.length - 1][index]}`}
+                      src={getImageSrc(solutionValue)}
+                      alt={`solution-${solutionValue}`}
                       className="opacity-75"
                       style={{
                         width: "100%",
@@ -288,12 +316,17 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
         </Box>
       </Paper>
 
-      {run && isReady && showSolution ? (
-        <div className="text-center mt-4 text-green-500 font-bold">
-          Solution found!
+      {/* Status indicators with better visibility */}
+      {run && isReady && !showSolution && (
+        <div className="text-center mt-4 text-white font-semibold bg-[#3b3b3b91] p-2 rounded-lg">
+          Finding solution...
         </div>
-      ) : (
-        <div className="text-center mt-4 text-green-500 font-bold"> </div>
+      )}
+
+      {run && isReady && showSolution && (
+        <div className="text-center mt-4 text-white-500 font-semibold bg-[#3b3b3b91] p-2 rounded-lg">
+          Solution found ✅
+        </div>
       )}
     </div>
   );

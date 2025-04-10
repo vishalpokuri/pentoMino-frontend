@@ -1,11 +1,15 @@
 import "./App.css";
 import { useEffect, useState, useRef } from "react";
 import { Background } from "./components/Background";
-// import Footer from "./components/Footer";
 import Board from "./components/Board";
 import BasicSelect from "./components/Select";
+import Toast from "./components/Toast";
 
 function App() {
+  const [openToast, setOpenToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState(
+    "Please select all values before running"
+  );
   const [date, setDate] = useState("");
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
@@ -17,8 +21,25 @@ function App() {
   //take a randomiser function,
   const randomizerValuesRef = useRef<number[][]>([]);
 
+  // Reset state when dropdown values change
+  useEffect(() => {
+    // Reset the board state when selection changes
+    setRun(false);
+    setIsReady(false);
+    randomizerValuesRef.current = [];
+    setSol([]);
+  }, [date, month, day]);
+
   useEffect(() => {
     if (!run) return;
+
+    // Check if solution exists
+    if (!sol || sol.length === 0 || !sol[0] || sol[0].length === 0) {
+      setToastMessage("No solution available. Please try different values.");
+      // setOpenToast(true);
+      // setRun(false);
+      return;
+    }
 
     const temp: number[][] = [];
 
@@ -40,10 +61,22 @@ function App() {
     }
     temp.push(answer);
 
-    // Save to ref
     randomizerValuesRef.current = temp;
-    setIsReady(true); // optional: to signal UI it's ready
-  }, [run]);
+    setIsReady(true);
+
+    console.log("Animation data prepared:", temp.length, "boards");
+    console.log("Solution board:", answer);
+  }, [run, sol]);
+
+  const handleRunClick = async () => {
+    if (date === "" || month === "" || day === "") {
+      setToastMessage("Please select all values before running");
+      setOpenToast(true);
+      return;
+    }
+
+    setRun(true);
+  };
 
   return (
     <div className="relative w-screen min-h-screen">
@@ -57,7 +90,8 @@ function App() {
           day={day}
           setDay={setDay}
           setSol={setSol}
-          setRun={setRun}
+          setRun={handleRunClick} // Pass the handler function instead
+          isFormComplete={date !== "" && month !== "" && day !== ""}
         />
 
         <Board
@@ -68,22 +102,10 @@ function App() {
           isReady={isReady}
           run={run}
         />
-        {/* <Footer /> */}
+        <Toast open={openToast} setOpen={setOpenToast} message={toastMessage} />
       </div>
     </div>
   );
 }
 
 export default App;
-
-//define structure
-/*
-Initially the board should show the text on it
-When you choose the items from the dropdown, fix it with highlighting with some low opacity blue
-
-When run button clicked - random(5-8) times show random blocks on it;
-9th time - Show result with showing a model solution found. 
-
-
-
-*/

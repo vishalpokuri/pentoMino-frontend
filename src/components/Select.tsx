@@ -2,19 +2,18 @@ import React from "react";
 import { DropdownButton } from "./DropdownButton";
 import Run from "./Run";
 type Setter = React.Dispatch<React.SetStateAction<string>>;
-type SetterA = React.Dispatch<React.SetStateAction<any>>;
-type SetterB = React.Dispatch<React.SetStateAction<boolean>>;
+type SetterA = React.Dispatch<React.SetStateAction<number[][]>>;
 
 interface BasicSelectProps {
   date: string;
   day: string;
   month: string;
-
   setDay: Setter;
   setMonth: Setter;
   setDate: Setter;
   setSol: SetterA;
-  setRun: SetterB;
+  setRun: () => void;
+  isFormComplete: boolean;
 }
 
 export default function BasicSelect({
@@ -24,7 +23,7 @@ export default function BasicSelect({
   setMonth,
   day,
   setDay,
-
+  isFormComplete,
   setRun,
   setSol,
 }: BasicSelectProps) {
@@ -46,7 +45,6 @@ export default function BasicSelect({
     );
     const data = await response.json();
     if (data.status == "success") {
-      console.log(data.status);
       setSol(data.solution.board);
     }
   };
@@ -84,7 +82,11 @@ export default function BasicSelect({
         onChange={setDay}
         options={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
       />
-      <Run runnerFn={runnerFn} setRun={setRun} />
+      <Run
+        runnerFn={runnerFn}
+        setRun={setRun}
+        isFormComplete={isFormComplete}
+      />
     </div>
   );
 }
