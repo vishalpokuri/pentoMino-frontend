@@ -11,6 +11,7 @@ import i8 from "../assets/figmaBlockImagesa/8.png";
 import i9 from "../assets/figmaBlockImagesa/9.png";
 import i10 from "../assets/figmaBlockImagesa/10.png";
 import Box from "@mui/material/Box";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface BoardProps {
   date: string;
@@ -25,6 +26,10 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
   const [currentRandomBoard, setCurrentRandomBoard] = useState<number[]>([]);
   const [_animationStep, setAnimationStep] = useState(0);
   const [showSolution, setShowSolution] = useState(false);
+
+  // Media queries for responsive design
+  const isMobile = useMediaQuery("(max-width:600px)");
+  const _isTablet = useMediaQuery("(max-width:960px)");
 
   const revealMap: Record<number, string> = {
     0: "Jan",
@@ -159,17 +164,18 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
   };
 
   return (
-    <div className="my-auto">
+    <div className="my-auto w-full flex flex-col items-center">
       <Paper
         sx={{
-          marginTop: "10vh",
-          width: { xs: "35vw", sm: "40vw", md: "45vw" },
+          marginTop: { xs: "5vh", sm: "10vh" },
+          width: { xs: "95%", sm: "80%", md: "70%", lg: "45vw" },
+          maxWidth: "600px", // Add max width for very large screens
           aspectRatio: "3 / 2",
           backgroundColor: "#1e1e1e",
-          borderRadius: 3,
-          padding: 2,
+          borderRadius: { xs: 2, sm: 3 },
+          padding: { xs: 1, sm: 2 },
           color: "#fff",
-          fontSize: "1.2rem",
+          fontSize: { xs: "0.8rem", sm: "1rem", md: "1.2rem" },
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -184,11 +190,17 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
             display: "grid",
             gridTemplateColumns: "repeat(9, 1fr)",
             gridTemplateRows: "repeat(6, 1fr)",
-            gap: 1,
+            gap: { xs: 0.5, sm: 1 },
           }}
         >
           {Array.from({ length: 53 }).map((_, index) => {
             const isHighlighted = highlightIndexes.includes(index);
+
+            // Determine text content based on screen size
+            const textContent =
+              isMobile && revealMap[index]?.length > 2
+                ? revealMap[index]?.substring(0, 3) // Truncate long text on mobile
+                : revealMap[index] || "";
 
             // During animation, show the random patterns except for highlighted cells
             if (run && isReady && !showSolution) {
@@ -200,24 +212,26 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
                     height: "100%",
                     aspectRatio: "1",
                     backgroundColor: isHighlighted ? "#3b82f6" : "#292929",
-                    borderRadius: 1,
+                    borderRadius: { xs: 0.5, sm: 1 },
                     opacity: isHighlighted ? 0.9 : 1,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     color: "white",
                     fontSize: {
-                      xs: "0.8rem",
-                      sm: "0.9rem",
+                      xs: "0.6rem",
+                      sm: "0.8rem",
+                      md: "0.9rem",
                       lg: "1rem",
                     },
                     fontWeight: isHighlighted ? "bold" : "normal",
                     transition: "all 0.3s ease-in-out",
+                    overflow: "hidden",
                   }}
                   className="text-black tracking-widest uppercase font-base bg-transparent hover:text-white"
                 >
                   {isHighlighted ? (
-                    revealMap[index] || ""
+                    textContent
                   ) : currentRandomBoard[index] !== undefined ? (
                     <img
                       src={getImageSrc(currentRandomBoard[index])}
@@ -244,24 +258,26 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
                     height: "100%",
                     aspectRatio: "1",
                     backgroundColor: isHighlighted ? "#3b82f6" : "#292929",
-                    borderRadius: 1,
+                    borderRadius: { xs: 0.5, sm: 1 },
                     opacity: isHighlighted ? 0.9 : 1,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     color: "white",
                     fontSize: {
-                      xs: "0.8rem",
-                      sm: "0.9rem",
+                      xs: "0.6rem",
+                      sm: "0.8rem",
+                      md: "0.9rem",
                       lg: "1rem",
                     },
                     fontWeight: isHighlighted ? "bold" : "normal",
                     transition: "all 0.3s ease-in-out",
+                    overflow: "hidden",
                   }}
                   className="text-black tracking-widest uppercase font-base bg-transparent hover:text-white"
                 >
                   {isHighlighted ? (
-                    revealMap[index] || ""
+                    textContent
                   ) : solutionValue !== undefined ? (
                     <img
                       src={getImageSrc(solutionValue)}
@@ -274,7 +290,7 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
                       }}
                     />
                   ) : (
-                    revealMap[index] || ""
+                    textContent
                   )}
                 </Box>
               );
@@ -288,22 +304,24 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
                     height: "100%",
                     aspectRatio: "1",
                     backgroundColor: isHighlighted ? "#3b82f6" : "#292929",
-                    borderRadius: 1,
+                    borderRadius: { xs: 0.5, sm: 1 },
                     opacity: isHighlighted ? 0.9 : 1,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     color: "white",
                     fontSize: {
-                      xs: "0.8rem",
-                      sm: "0.9rem",
+                      xs: "0.6rem",
+                      sm: "0.8rem",
+                      md: "0.9rem",
                       lg: "1rem",
                     },
                     fontWeight: isHighlighted ? "bold" : "normal",
+                    overflow: "hidden",
                   }}
                   className="text-black tracking-widest uppercase font-base bg-transparent hover:text-white"
                 >
-                  {revealMap[index] || ""}
+                  {textContent}
                 </Box>
               );
             }
@@ -313,13 +331,13 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
 
       {/* Status indicators with better visibility */}
       {run && isReady && !showSolution && (
-        <div className="text-center mt-4 text-white font-semibold bg-[#3b3b3b91] p-2 rounded-lg">
+        <div className="text-center mt-4 text-white font-semibold bg-[#3b3b3b91] p-2 rounded-lg max-w-xs w-full">
           Finding solution...
         </div>
       )}
 
       {run && isReady && showSolution && (
-        <div className="text-center mt-4 text-white-500 font-semibold bg-[#3b3b3b91] p-2 rounded-lg">
+        <div className="text-center mt-4 text-white-500 font-semibold bg-[#3b3b3b91] p-2 rounded-lg max-w-xs w-full">
           Solution found ✅
         </div>
       )}

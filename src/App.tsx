@@ -4,6 +4,7 @@ import { Background } from "./components/Background";
 import Board from "./components/Board";
 import BasicSelect from "./components/Select";
 import Toast from "./components/Toast";
+import Footer from "./components/Footer";
 
 function App() {
   const [openToast, setOpenToast] = useState(false);
@@ -76,9 +77,15 @@ function App() {
   };
 
   return (
-    <div className="relative w-screen min-h-screen">
+    <div className="flex flex-col min-h-screen relative">
       <Background />
-      <div className="relative z-10 flex flex-row justify-around my-auto h-screen">
+      <div className="w-full flex justify-center items-center mt-6">
+        <div className="bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text text-2xl font-bold text-transparent sm:text-3xl">
+          Calendar Puzzle Solver
+        </div>
+      </div>
+
+      <div className="relative z-10 flex flex-col lg:flex-row justify-center items-center gap-6 px-4 py-6 flex-grow">
         <BasicSelect
           date={date}
           setDate={setDate}
@@ -87,7 +94,7 @@ function App() {
           day={day}
           setDay={setDay}
           setSol={setSol}
-          setRun={handleRunClick} // Pass the handler function instead
+          setRun={handleRunClick}
           isFormComplete={date !== "" && month !== "" && day !== ""}
         />
 
@@ -101,6 +108,8 @@ function App() {
         />
         <Toast open={openToast} setOpen={setOpenToast} message={toastMessage} />
       </div>
+
+      <Footer />
     </div>
   );
 }
