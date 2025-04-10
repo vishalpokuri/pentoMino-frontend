@@ -29,7 +29,7 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
 
   // Media queries for responsive design
   const isMobile = useMediaQuery("(max-width:600px)");
-  const _isTablet = useMediaQuery("(max-width:960px)");
+  // const _isTablet = useMediaQuery("(max-width:960px)");
 
   const revealMap: Record<number, string> = {
     0: "Jan",
