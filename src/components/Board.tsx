@@ -164,7 +164,7 @@ const Board = ({ date, day, month, rdVals, isReady, run }: BoardProps) => {
   };
 
   return (
-    <div className="my-auto w-full flex flex-col items-center">
+    <div className="my-auto w-full flex flex-col items-center ">
       <Paper
         sx={{
           marginTop: { xs: "5vh", sm: "10vh" },

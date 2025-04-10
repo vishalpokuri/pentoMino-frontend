@@ -85,7 +85,7 @@ function App() {
         </div>
       </div>
 
-      <div className="relative z-10 flex flex-col lg:flex-row justify-center items-center gap-6 px-4 py-6 flex-grow">
+      <div className="relative z-10 flex flex-col lg:flex-row justify-center items-center gap-6 px-4 py-6 lg:mx-48 flex-grow">
         <BasicSelect
           date={date}
           setDate={setDate}

@@ -50,7 +50,7 @@ export default function BasicSelect({
   };
 
   return (
-    <div className="flex flex-wrap my-auto gap-6 py-10 flex-col">
+    <div className="flex flex-wrap my-auto gap-6 py-4 flex-col">
       <DropdownButton
         label="Date"
         value={date}
