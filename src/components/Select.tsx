@@ -2,14 +2,19 @@ import React from "react";
 import { DropdownButton } from "./DropdownButton";
 import Run from "./Run";
 type Setter = React.Dispatch<React.SetStateAction<string>>;
+type SetterA = React.Dispatch<React.SetStateAction<any>>;
+type SetterB = React.Dispatch<React.SetStateAction<boolean>>;
 
 interface BasicSelectProps {
   date: string;
   day: string;
   month: string;
+
   setDay: Setter;
   setMonth: Setter;
   setDate: Setter;
+  setSol: SetterA;
+  setRun: SetterB;
 }
 
 export default function BasicSelect({
@@ -19,6 +24,9 @@ export default function BasicSelect({
   setMonth,
   day,
   setDay,
+
+  setRun,
+  setSol,
 }: BasicSelectProps) {
   const runnerFn = async () => {
     const response = await fetch(
@@ -37,7 +45,10 @@ export default function BasicSelect({
       }
     );
     const data = await response.json();
-    console.log(data);
+    if (data.status == "success") {
+      console.log(data.status);
+      setSol(data.solution.board);
+    }
   };
 
   return (
@@ -73,7 +84,7 @@ export default function BasicSelect({
         onChange={setDay}
         options={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
       />
-      <Run runnerFn={runnerFn} />
+      <Run runnerFn={runnerFn} setRun={setRun} />
     </div>
   );
 }

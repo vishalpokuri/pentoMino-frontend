@@ -1,11 +1,17 @@
+type SetterB = React.Dispatch<React.SetStateAction<boolean>>;
 interface RunProps {
   runnerFn: () => void;
+
+  setRun: SetterB;
 }
-const Run = ({ runnerFn }: RunProps) => {
+const Run = ({ runnerFn, setRun }: RunProps) => {
   return (
     <div>
       <button
-        onClick={runnerFn}
+        onClick={() => {
+          setRun((prev) => !prev);
+          runnerFn();
+        }}
         className="shadow-[inset_0_0_0_2px_#616467] text-black px-8 py-3 w-full rounded-full tracking-widest uppercase font-bold bg-lime-600 hover:bg-lime-700 hover:text-white dark:text-neutral-200 transition duration-200 flex justify-center items-center "
       >
         <svg
