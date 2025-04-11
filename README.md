@@ -55,6 +55,7 @@ npm install
 
 # Run the app
 npm run dev
+```
 
 ## 📷 Screenshots
 ![image](https://github.com/user-attachments/assets/d8e17526-99fb-4241-b6d6-326fd4c4869e)
