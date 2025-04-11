@@ -1,7 +1,8 @@
 
 # 🧩 Calendar Puzzle Solver (Pentomino)
 
-![image](https://github.com/user-attachments/assets/09ecf58c-0795-4224-a175-3010b47b91a1)
+![image (1)](https://github.com/user-attachments/assets/190f5030-89b5-423b-89b7-c9876d5831cb)
+
 
 A fun & challenging puzzle visualizer that places uniquely shaped pieces onto a 6x9 board — while revealing **today’s date** through open slots. Inspired by [@the_puzzle_guy](https://www.instagram.com/the_puzzle_guy/) pentomino puzzles, this project uses backtracking to find valid solutions each day!
 
