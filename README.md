@@ -55,3 +55,11 @@ npm install
 
 # Run the app
 npm run dev
+
+## 📷 Screenshots
+![image](https://github.com/user-attachments/assets/d8e17526-99fb-4241-b6d6-326fd4c4869e)
+![image](https://github.com/user-attachments/assets/97e11889-3302-46f6-bd65-cc7565020e5b)
+![WhatsApp Image 2025-04-12 at 00 13 03_3ee7a7ee](https://github.com/user-attachments/assets/e5408d75-1028-4de7-ade6-4ba6bce52c8b)
+
+
+
