@@ -17,7 +17,7 @@ export default function Run({ runnerFn, setRun, isFormComplete }: RunProps) {
 
       setTimeout(() => {
         setCooldown(false);
-      }, 1500);
+      }, 2200);
     }
   };
 

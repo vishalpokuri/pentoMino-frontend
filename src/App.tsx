@@ -5,6 +5,7 @@ import Board from "./components/Board";
 import BasicSelect from "./components/Select";
 import Toast from "./components/Toast";
 import Footer from "./components/Footer";
+import NotionIcon, { NotionButton } from "./components/Notion";
 
 function App() {
   const [openToast, setOpenToast] = useState(false);
@@ -79,6 +80,8 @@ function App() {
   return (
     <div className="flex flex-col min-h-screen relative">
       <Background />
+      <NotionButton />
+
       <div className="w-full flex justify-center items-center mt-6">
         <div className="bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text text-2xl font-bold text-transparent sm:text-3xl">
           Calendar Puzzle Solver
