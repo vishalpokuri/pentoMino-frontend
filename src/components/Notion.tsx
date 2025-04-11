@@ -1,14 +1,14 @@
 export const NotionButton = () => {
   return (
     <a
-      href="https://www.notion.so/Calendar-Puzzle-Pentomino-Solver-1d117266fbd680dc92fec605b175fcd2"
+      href="https://thunder-slouch-7c4.notion.site/Calendar-Puzzle-Pentomino-Solver-1d117266fbd680dc92fec605b175fcd2"
       target="_blank"
       rel="noopener noreferrer"
-      className="relative group"
+      className="fixed group right-0 top-1/2 transform -translate-y-1/2 z-50"
     >
-      <div className="bg-white h-[30px] w-[30px] absolute top-0 right-0 flex items-center justify-start mt-2 mr-2 rounded-md cursor-pointer shadow-sm hover:shadow-md transition-all duration-500 overflow-hidden group-hover:w-auto group-hover:max-w-[330px] group-hover:px-2">
-        {/* Icon with neat internal padding */}
-        <div className="flex-shrink-0 p-1">
+      <div className="bg-white h-[40px] w-[40px] flex items-center rounded-l-full border-l border-y border-gray-200 shadow-sm transition-all duration-300 hover:w-auto hover:pr-4 hover:shadow-md">
+        {/* Icon container - fixed width to ensure visibility */}
+        <div className="w-[40px] h-[40px] flex items-center justify-center flex-shrink-0">
           <svg
             fill="#000000"
             width="20"
@@ -20,11 +20,13 @@ export const NotionButton = () => {
           </svg>
         </div>
 
-        {/* Text with fade-in and spacing */}
-        <span className="ml-2 text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-gray-800">
-          Curious how it works?{" "}
-          <span className="underline mx-1">Read my journey →</span>
-        </span>
+        {/* Text with hidden by default but visible on hover */}
+        <div className="w-0 overflow-hidden group-hover:w-auto transition-all duration-300 whitespace-nowrap">
+          <span className="text-sm text-gray-800">
+            Curious how it works?{" "}
+            <span className="underline text-blue-600">Read my journey →</span>
+          </span>
+        </div>
       </div>
     </a>
   );
