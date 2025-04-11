@@ -1,54 +1,56 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🧩 Calendar Puzzle Solver (Pentomino)
 
-Currently, two official plugins are available:
+![image](https://github.com/user-attachments/assets/09ecf58c-0795-4224-a175-3010b47b91a1)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A fun & challenging puzzle visualizer that places uniquely shaped pieces onto a 6x9 board — while revealing **today’s date** through open slots. Inspired by [@the_puzzle_guy](https://www.instagram.com/the_puzzle_guy/) pentomino puzzles, this project uses backtracking to find valid solutions each day!
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🚀 Demo
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+> Curious how it works? [Click here to view logic](https://thunder-slouch-7c4.notion.site/How-did-I-actually-do-1d117266fbd680d3a796dc1757eb67d5) 
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 🧠 How It Works
+
+- The board is a static 6x9 grid with **53 fixed positions**.
+- The solver leaves 3 specific blocks empty to show the **date, month, and day**.
+- It uses a recursive **backtracking algorithm** to fit the remaining pieces.
+- A custom **Top-left Empty Cell Heuristic** helps optimize piece placement.
+
+---
+
+## ⚙️ Tech Stack
+
+- **Frontend**: React(Vite) + TailwindCSS
+- **Backend**: SpringBoot
+- **Logic**: Java (for recursion performance)
+- **Solver**: Custom heuristic, orientation mapping, collision detection
+
+
+
+## 📦 Features
+
+- ✅ Solve puzzle for any given date
+- ✅ Shows month, date & day dynamically
+- ✅ Works on any orientation of pieces
+- ✅ Visual transitions & animations
+
+
+
+
+## 🖥️ Run Locally
+
+```bash
+# Clone the repo
+git clone https://github.com/yourusername/calendar-puzzle
+
+# Go into the folder
+cd calendar-puzzle
+
+# Install dependencies
+npm install
+
+# Run the app
+npm run dev
