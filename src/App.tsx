@@ -5,7 +5,7 @@ import Board from "./components/Board";
 import BasicSelect from "./components/Select";
 import Toast from "./components/Toast";
 import Footer from "./components/Footer";
-import NotionIcon, { NotionButton } from "./components/Notion";
+import { NotionButton } from "./components/Notion";
 
 function App() {
   const [openToast, setOpenToast] = useState(false);
